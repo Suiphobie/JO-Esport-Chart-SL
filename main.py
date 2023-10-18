@@ -22,8 +22,8 @@ filtered_data = data[data["À quelle tranche d'âge appartenez-vous ? "] == age_
 
 
 # Pie Chart Tranche Age
-def adjusted_interactive_pie_chart(column_name, title):
-   # Use the provided data argument for the count
+def adjusted_interactive_pie_chart(data, column_name, title):
+    # Use the provided data argument for the count
     counts = data[column_name].value_counts().reset_index()
     counts.columns = ['Category', 'Count']
 
