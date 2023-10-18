@@ -103,4 +103,3 @@ with col3:
 
 # Pour le dernier graphique, car il est plus large, nous le plaçons en dehors des colonnes pour qu'il prenne toute la largeur de la page.
 st.altair_chart(most_known_games_chart())
-Avec ces modifications, les trois premiers gr
