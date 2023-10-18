@@ -89,19 +89,22 @@ def most_known_games_chart():
     return chart
 
 
-# Fonction pour créer un graphique de barres interactif pour une série de questions
-def interactive_bar_chart(question_prefix, title):
-    # Extraire les colonnes liées à la question
+# Adjust the function to handle mixed data types
+def adjusted_interactive_bar_chart(question_prefix, title):
+    # Extract related columns
     related_cols = [col for col in data.columns if question_prefix in col and "Aucun" not in col]
     
-    # Agréger les données
-    counts = data[related_cols].sum().reset_index()
+    # Ensure the columns are numeric
+    numeric_data = data[related_cols].apply(pd.to_numeric, errors='coerce')
+    
+    # Aggregate the data
+    counts = numeric_data.sum().reset_index()
     counts.columns = ['Category', 'Count']
     
-    # Nettoyer les noms de catégorie
+    # Clean category names
     counts['Category'] = counts['Category'].str.replace(question_prefix + " \(", "").str.replace("\)", "")
     
-    # Créer le graphique
+    # Create the chart
     chart = alt.Chart(counts).mark_bar().encode(
         x=alt.X('Category:O', sort='-y', title=''),
         y='Count:Q',
@@ -115,9 +118,9 @@ def interactive_bar_chart(question_prefix, title):
     
     return chart
 
-# Créer la visualisation pour les épreuves connues
-known_events_chart = interactive_bar_chart("Quelles sont les épreuves que tu connais ?", "Épreuves connues par les répondants")
-known_events_chart
+# Test the adjusted function for known events
+known_events_chart_adjusted = adjusted_interactive_bar_chart("Quelles sont les épreuves que tu connais ?", "Épreuves connues par les répondants")
+known_events_chart_adjusted
 
 
 
@@ -139,7 +142,7 @@ with col3:
 st.altair_chart(most_known_games_chart())
 
 # Nouveaux graphiques interactifs
-st.altair_chart(interactive_bar_chart("Quelles sont les épreuves que tu connais ?", "Épreuves connues par les répondants"))
-st.altair_chart(interactive_bar_chart("Parmi ces jeux lesquels as-tu déjà joué?", "Jeux joués par les répondants"))
-st.altair_chart(interactive_bar_chart("Parmi ces athlètes, lesquels connais-tu ?", "Athlètes connus par les répondants"))
+st.altair_chart(adjusted_interactive_bar_chart("Quelles sont les épreuves que tu connais ?", "Épreuves connues par les répondants"))
+st.altair_chart(adjusted_interactive_bar_chart("Parmi ces jeux lesquels as-tu déjà joué?", "Jeux joués par les répondants"))
+st.altair_chart(adjusted_interactive_bar_chart("Parmi ces athlètes, lesquels connais-tu ?", "Athlètes connus par les répondants"))
 
