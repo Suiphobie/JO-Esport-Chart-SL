@@ -153,8 +153,7 @@ with col2:
 with col3:
     st.altair_chart(knowledge_about_event_chart())
 
-# Pour le dernier graphique, car il est plus large, nous le plaçons en dehors des colonnes pour qu'il prenne toute la largeur de la page.
-st.altair_chart(most_known_games_chart())
+
 
 # Nouveaux graphiques interactifs
 st.altair_chart(adjusted_interactive_bar_chart("Quelles sont les épreuves que tu connais ?", "Épreuves connues par les répondants"))
