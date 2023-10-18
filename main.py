@@ -37,6 +37,9 @@ def adjusted_interactive_pie_chart(column_name, title):
     return chart
 
 
+
+
+
 # 1. Répartition par tranche d'âge
 def age_distribution_chart():
     counts = data["À quelle tranche d'âge appartenez-vous ? "].value_counts().reset_index()
@@ -78,7 +81,7 @@ def most_known_games_chart():
         x=alt.X('Game:O', sort='-y'),
         y='Count:Q',
         color='Game:N',
-        tooltip=['Game', 'Count']
+        tooltip=['Jeux', 'Nombre']
     ).properties(
         title="Jeux les plus connus",
         width=600
@@ -86,11 +89,42 @@ def most_known_games_chart():
     return chart
 
 
+# Fonction pour créer un graphique de barres interactif pour une série de questions
+def interactive_bar_chart(question_prefix, title):
+    # Extraire les colonnes liées à la question
+    related_cols = [col for col in data.columns if question_prefix in col and "Aucun" not in col]
+    
+    # Agréger les données
+    counts = data[related_cols].sum().reset_index()
+    counts.columns = ['Category', 'Count']
+    
+    # Nettoyer les noms de catégorie
+    counts['Category'] = counts['Category'].str.replace(question_prefix + " \(", "").str.replace("\)", "")
+    
+    # Créer le graphique
+    chart = alt.Chart(counts).mark_bar().encode(
+        x=alt.X('Category:O', sort='-y', title=''),
+        y='Count:Q',
+        color='Category:N',
+        tooltip=['Category', 'Count']
+    ).properties(
+        title=title,
+        width="container",
+        height=400
+    )
+    
+    return chart
+
+# Créer la visualisation pour les épreuves connues
+known_events_chart = interactive_bar_chart("Quelles sont les épreuves que tu connais ?", "Épreuves connues par les répondants")
+known_events_chart
+
+
 
 # Titre de l'application
 st.title("Résultats du sondage sur l'e-sport et les J.O.")
 
-# Utilisation de colonne s pour organiser les graphiques en colonnes
+# Utilisation de colonnes pour organiser les graphiques en colonnes
 col1, col2, col3 = st.columns(3)  
 
 # Affichage des graphiques dans les colonnes appropriées
@@ -103,3 +137,9 @@ with col3:
 
 # Pour le dernier graphique, car il est plus large, nous le plaçons en dehors des colonnes pour qu'il prenne toute la largeur de la page.
 st.altair_chart(most_known_games_chart())
+
+# Nouveaux graphiques interactifs
+st.altair_chart(interactive_bar_chart("Quelles sont les épreuves que tu connais ?", "Épreuves connues par les répondants"))
+st.altair_chart(interactive_bar_chart("Parmi ces jeux lesquels as-tu déjà joué?", "Jeux joués par les répondants"))
+st.altair_chart(interactive_bar_chart("Parmi ces athlètes, lesquels connais-tu ?", "Athlètes connus par les répondants"))
+
