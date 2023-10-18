@@ -91,7 +91,7 @@ def most_known_games_chart():
 st.title("Résultats du sondage sur l'e-sport et les J.O.")
 
 # Affichage du graphique interactif
-st.altair_chart(interactive_pie_chart("As-tu entendu parler de la semaine \"The Olympic Esports Series 2023\" ?", "Connaissance de 'The Olympic Esports Series 2023'"))
+st.altair_chart(interactive_pie_chart())
 st.altair_chart(age_distribution_chart())
 st.altair_chart(knowledge_about_event_chart())
 st.altair_chart(most_known_games_chart())
