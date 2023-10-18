@@ -73,9 +73,6 @@ def most_known_games_chart():
     )
     return chart
 
-age_distribution_chart(), knowledge_about_event_chart(), most_known_games_chart()
-
-
 
 
 # Titre de l'application
