@@ -9,8 +9,8 @@ def load_data():
 
 data = load_data()
 
-# Fonction pour créer un graphique en camembert interactif avec Altair
-def interactive_pie_chart(column_name, title):
+# Pie Chart Tranche Age
+def adjusted_interactive_pie_chart(column_name, title):
     counts = data[column_name].value_counts().reset_index()
     counts.columns = ['Category', 'Count']
 
@@ -22,8 +22,20 @@ def interactive_pie_chart(column_name, title):
         title=title,
         width=300,
         height=300
+    ).configure_view(
+        strokeWidth=0
+    ).configure_scale(
+        bandPaddingInner=0.05
     )
+    
+    # Adjusting the margin
+    chart = chart.configure_view(strokeWidth=0).configure_scale(bandPaddingInner=0.05).configure_mark(opacity=0.7).properties(
+        width=350,
+        height=300
+    )
+    
     return chart
+
 
 # 1. Répartition par tranche d'âge
 def age_distribution_chart():
