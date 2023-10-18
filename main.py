@@ -118,9 +118,6 @@ def adjusted_interactive_bar_chart(question_prefix, title):
     
     return chart
 
-# Test the adjusted function for known events
-known_events_chart_adjusted = adjusted_interactive_bar_chart("Quelles sont les épreuves que tu connais ?", "Épreuves connues par les répondants")
-known_events_chart_adjusted
 
 
 
