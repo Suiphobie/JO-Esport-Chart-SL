@@ -102,7 +102,7 @@ def adjusted_interactive_bar_chart(question_prefix, title):
     counts.columns = ['Category', 'Count']
     
     # Clean category names
-    counts['Category'] = counts['Category'].str.replace(question_prefix + " \(", "").str.replace("\)", "")
+    counts['Category'] = counts['Category'].str.replace(question_prefix + " \(", "", regex=True).str.replace("\)", "", regex=True)
     
     # Create the chart
     chart = alt.Chart(counts).mark_bar().encode(
@@ -112,7 +112,7 @@ def adjusted_interactive_bar_chart(question_prefix, title):
         tooltip=['Category', 'Count']
     ).properties(
         title=title,
-        width="container",
+        width=600,  # Fixed width
         height=400
     )
     
