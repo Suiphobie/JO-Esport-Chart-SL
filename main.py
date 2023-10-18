@@ -90,8 +90,17 @@ def most_known_games_chart():
 # Titre de l'application
 st.title("Résultats du sondage sur l'e-sport et les J.O.")
 
-# Affichage du graphique interactif
-st.altair_chart(adjusted_interactive_pie_chart("As-tu entendu parler de la semaine \"The Olympic Esports Series 2023\" ?", "Connaissance de 'The Olympic Esports Series 2023'"))
-st.altair_chart(age_distribution_chart())
-st.altair_chart(knowledge_about_event_chart())
+# Utilisation de st.beta_columns pour organiser les graphiques en colonnes
+col1, col2, col3 = st.beta_columns(3)  # Créer trois colonnes
+
+# Affichage des graphiques dans les colonnes appropriées
+with col1:
+    st.altair_chart(adjusted_interactive_pie_chart("As-tu entendu parler de la semaine \"The Olympic Esports Series 2023\" ?", "Connaissance de 'The Olympic Esports Series 2023'"))
+with col2:
+    st.altair_chart(age_distribution_chart())
+with col3:
+    st.altair_chart(knowledge_about_event_chart())
+
+# Pour le dernier graphique, car il est plus large, nous le plaçons en dehors des colonnes pour qu'il prenne toute la largeur de la page.
 st.altair_chart(most_known_games_chart())
+Avec ces modifications, les trois premiers gr
