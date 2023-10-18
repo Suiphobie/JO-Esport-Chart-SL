@@ -157,7 +157,10 @@ with col3:
 st.altair_chart(most_known_games_chart())
 
 # Nouveaux graphiques interactifs
-st.altair_chart(adjusted_interactive_bar_chart("Quelles sont les épreuves que tu connais ?", "Épreuves connues par les répondants"))
-st.altair_chart(adjusted_interactive_bar_chart("Parmi ces jeux lesquels as-tu déjà joué?", "Jeux joués par les répondants"))
+c1, c2 = st.columns(2)
+
+with c1: 
+    st.altair_chart(adjusted_interactive_bar_chart("Quelles sont les épreuves que tu connais ?", "Épreuves connues par les répondants"))
+with c2:
 st.altair_chart(adjusted_interactive_bar_chart("Parmi ces athlètes, lesquels connais-tu ?", "Athlètes connus par les répondants"))
 
