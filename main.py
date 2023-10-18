@@ -23,6 +23,7 @@ filtered_data = data[data["À quelle tranche d'âge appartenez-vous ? "] == age_
 
 # Pie Chart Tranche Age
 def adjusted_interactive_pie_chart(column_name, title):
+   # Use the provided data argument for the count
     counts = data[column_name].value_counts().reset_index()
     counts.columns = ['Category', 'Count']
 
@@ -31,8 +32,14 @@ def adjusted_interactive_pie_chart(column_name, title):
         color='Category:N',
         tooltip=['Category', 'Count']
     ).properties(
-        title=title,
-        width=300,
+        title={
+            "text": ["Personnes connaissant l'évènement Esport Week J.O", title],  # Multi-line title
+            "subtitle": ["Basé sur la tranche d'âge sélectionnée"],
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "subtitleFontSize": 12
+        },
+        width=350,
         height=300
     ).configure_view(
         strokeWidth=0
@@ -47,7 +54,6 @@ def adjusted_interactive_pie_chart(column_name, title):
     )
     
     return chart
-
 
 
 
@@ -141,7 +147,7 @@ col1, col2, col3 = st.columns(3)
 
 # Affichage des graphiques dans les colonnes appropriées
 with col1:
-    st.altair_chart(adjusted_interactive_pie_chart("As-tu entendu parler de la semaine \"The Olympic Esports Series 2023\" ?", "Connaissance de 'The Olympic Esports Series 2023'"))
+    st.altair_chart(adjusted_interactive_pie_chart(filtered_data, "As-tu entendu parler de la semaine \"The Olympic Esports Series 2023\" ?", "Connaissance de 'The Olympic Esports Series 2023'"))
 with col2:
     st.altair_chart(age_distribution_chart())
 with col3:
