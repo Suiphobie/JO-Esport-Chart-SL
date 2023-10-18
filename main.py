@@ -90,8 +90,8 @@ def most_known_games_chart():
 # Titre de l'application
 st.title("Résultats du sondage sur l'e-sport et les J.O.")
 
-# Utilisation de st.beta_columns pour organiser les graphiques en colonnes
-col1, col2, col3 = st.beta_columns(3)  # Créer trois colonnes
+# Utilisation de colonne s pour organiser les graphiques en colonnes
+col1, col2, col3 = st.columns(3)  
 
 # Affichage des graphiques dans les colonnes appropriées
 with col1:
