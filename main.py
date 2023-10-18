@@ -81,7 +81,7 @@ def most_known_games_chart():
         x=alt.X('Game:O', sort='-y'),
         y='Count:Q',
         color='Game:N',
-        tooltip=['Jeux', 'Nombre']
+        tooltip=['Game', 'Nombre']
     ).properties(
         title="Jeux les plus connus",
         width=600
