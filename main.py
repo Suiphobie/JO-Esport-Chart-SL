@@ -21,43 +21,6 @@ age_selection = st.selectbox("Sélectionnez une tranche d'âge:", options=["Tous
 filtered_data = data if age_selection == "Tous" else data[data["À quelle tranche d'âge appartenez-vous ? "] == age_selection]
 
 
-# Pie Chart Tranche Age
-def adjusted_interactive_pie_chart(data, column_name, title):
-    # Use the provided data argument for the count
-    counts = data[column_name].value_counts().reset_index()
-    counts.columns = ['Category', 'Count']
-
-    chart = alt.Chart(counts).mark_arc(innerRadius=50, outerRadius=150).encode(
-        theta='Count:Q',
-        color='Category:N',
-        tooltip=['Category', 'Count']
-    ).properties(
-        title={
-            "text": ["Personnes connaissant l'évènement Esport Week J.O", title],  # Multi-line title
-            "subtitle": ["Basé sur la tranche d'âge sélectionnée"],
-            "fontSize": 16,
-            "fontWeight": "bold",
-            "subtitleFontSize": 12
-        },
-        width=350,
-        height=300
-    ).configure_view(
-        strokeWidth=0
-    ).configure_scale(
-        bandPaddingInner=0.05
-    )
-    
-    # Adjusting the margin
-    chart = chart.configure_view(strokeWidth=0).configure_scale(bandPaddingInner=0.05).configure_mark(opacity=0.7).properties(
-        width=350,
-        height=300
-    )
-    
-    return chart
-
-
-
-
 # 1. Répartition par tranche d'âge
 def age_distribution_chart():
     counts = filtered_data["À quelle tranche d'âge appartenez-vous ? "].value_counts().reset_index()
@@ -146,18 +109,17 @@ st.title("Résultats du sondage sur l'e-sport et les J.O.")
 col1, col2, col3 = st.columns(3)  
 
 # Affichage des graphiques dans les colonnes appropriées
-with col1:
-    st.altair_chart(adjusted_interactive_pie_chart(filtered_data, "As-tu entendu parler de la semaine \"The Olympic Esports Series 2023\" ?", "Connaissance de 'The Olympic Esports Series 2023'"))
-with col2:
-    st.altair_chart(age_distribution_chart())
-with col3:
-    st.altair_chart(knowledge_about_event_chart())
-# Nouveaux graphiques interactifs
-c1, c2, c3 = st.columns(3)
 
-with c1: 
+with col1:
+    st.altair_chart(age_distribution_chart())
+with col2:
+    st.altair_chart(knowledge_about_event_chart())
+with col3: 
     st.altair_chart(adjusted_interactive_bar_chart("Quelles sont les épreuves que tu connais ?", "Épreuves connues par les répondants"))
-with c2:
+# Nouveaux graphiques interactifs
+c1, c2 = st.columns(2)
+
+with c1:
     st.altair_chart(adjusted_interactive_bar_chart("Parmi ces athlètes, lesquels connais-tu ?", "Athlètes connus par les répondants"))
-with c3 : 
+with c2 : 
     st.altair_chart(most_known_games_chart())
