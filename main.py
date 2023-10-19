@@ -20,28 +20,31 @@ data = load_data()
 
 # Afficher le nombre de répondants
 
-st.title("Analyse détaillée en fonction de la tranche d'âge sélectionnée")
-
-# 1. Répartition par tranche d'âge
+st.title("Analyse par tranche d'âges et nombre total de répondants")
 def age_distribution_chart():
     counts = data["À quelle tranche d'âge appartenez-vous ? "].value_counts().sort_index().reset_index()
     counts.columns = ['Tranche Âge', 'Nombre']
     chart = alt.Chart(counts).mark_arc(innerRadius=50, outerRadius=150).encode(theta="Nombre:Q",
         color=alt.Color('Tranche Âge:N'),
         tooltip=['Tranche Âge', 'Nombre']).properties(
-        title="Répartition par tranche d'âge de tous les répondants",
+        title={
+            "text": "Répartition par tranche d'âge de tous les répondants",
+            "dy": -20,  # déplace le titre vers le haut de 20 pixels
+            "fontSize": 16
+        },
         width=600
         ).project(
         type='identity', scale=2
     )
     return chart
 
+
 # Création de trois colonnes : gauche, centre, droite
 left_column, center_column, right_column = st.columns(3)
 
 # Affichage du graphique dans la colonne centrale
 with left_column:
-    st.markdown(f"# {len(data)} Répondants:")
+    st.markdown(f"# {len(data)} Répondants")
 with center_column:
     st.altair_chart(age_distribution_chart())
 
