@@ -28,8 +28,8 @@ def age_distribution_chart():
     chart = alt.Chart(counts).mark_bar().encode(
         x='Tranche d'âge:O',
         y='Nombre:Q',
-        color='Tranche d'âge:N',
-        tooltip=['Tranche d'âge', 'Nombre']
+        color="Tranche d'âge:N",
+        tooltip=["Tranche d'âge", "Nombre"]
     ).properties(
         title="Répartition par tranche d'âge de tous les répondants",
         width=400
