@@ -24,18 +24,17 @@ filtered_data = data if age_selection == "Tous" else data[data["À quelle tranch
 # 1. Répartition par tranche d'âge
 def age_distribution_chart():
     counts = data["À quelle tranche d'âge appartenez-vous ? "].value_counts().reset_index()
-    counts.columns = ["Tranche d'âge", "Nombre"]
+    counts.columns = ['Tranche Âge', 'Nombre']
     chart = alt.Chart(counts).mark_bar().encode(
-        x=alt.X('Tranche d\'âge:O', title="Tranche d'âge"),
-        y=alt.Y('Nombre:Q', title="Nombre"),
-        color=alt.Color('Tranche d\'âge:N', title="Tranche d'âge"),
-        tooltip=[alt.Tooltip('Tranche d\'âge'), alt.Tooltip('Nombre')]
+        x='Tranche Âge:O',
+        y='Nombre:Q',
+        color='Tranche Âge:N',
+        tooltip=['Tranche Âge', 'Nombre']
     ).properties(
         title="Répartition par tranche d'âge de tous les répondants",
         width=400
     )
     return chart
-
 
 # 2. Connaissance de 'The Olympic Esports Series 2023'
 def knowledge_about_event_chart():
