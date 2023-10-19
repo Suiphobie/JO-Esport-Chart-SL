@@ -18,17 +18,25 @@ data = load_data()
 age_selection = st.selectbox("Sélectionnez une tranche d'âge:", options=["Tous"] + list(data["À quelle tranche d'âge appartenez-vous ? "].unique()), index=0)
 
 # Filtrage des données en fonction de la tranche d'âge sélectionnée
+
+st.altair_chart(age_distribution_chart())
+
+age_selection = st.selectbox("Sélectionnez une tranche d'âge:", options=["Tous"] + list(data["À quelle tranche d'âge appartenez-vous ? "].unique()), index=0)
 filtered_data = data if age_selection == "Tous" else data[data["À quelle tranche d'âge appartenez-vous ? "] == age_selection]
+
+st.title("Analyse détaillée en fonction de la tranche d'âge sélectionnée")
+
+
 
 
 # 1. Répartition par tranche d'âge
 def age_distribution_chart():
     counts = data["À quelle tranche d'âge appartenez-vous ? "].value_counts().reset_index()
     counts.columns = ['Tranche Âge', 'Nombre']
-    chart = alt.Chart(counts).mark_bar().encode(
-        x='Tranche Âge:O',
+    chart = alt.Chart(counts).mark_arc(innerRadius=50, outerRadius=150).encode(theta="Nombre:Q",
+        
         y='Nombre:Q',
-        color='Tranche Âge:N',
+        color=alt.Color('Tranche Âge:N', legend=None),
         tooltip=['Tranche Âge', 'Nombre']
     ).properties(
         title="Répartition par tranche d'âge de tous les répondants",
@@ -111,7 +119,7 @@ col1, col2, col3 = st.columns(3)
 # Affichage des graphiques dans les colonnes appropriées
 
 with col1:
-    st.altair_chart(age_distribution_chart())
+    
 with col2:
     st.altair_chart(knowledge_about_event_chart())
 with col3: 
