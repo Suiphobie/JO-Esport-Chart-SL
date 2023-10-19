@@ -60,7 +60,7 @@ def adjusted_interactive_pie_chart(data, column_name, title):
 
 # 1. Répartition par tranche d'âge
 def age_distribution_chart():
-    counts = data["À quelle tranche d'âge appartenez-vous ? "].value_counts().reset_index()
+    counts = filtered_data["À quelle tranche d'âge appartenez-vous ? "].value_counts().reset_index()
     counts.columns = ['Age Group', 'Count']
     chart = alt.Chart(counts).mark_bar().encode(
         x='Age Group:O',
@@ -75,7 +75,7 @@ def age_distribution_chart():
 
 # 2. Connaissance de 'The Olympic Esports Series 2023'
 def knowledge_about_event_chart():
-    counts = data["As-tu entendu parler de la semaine \"The Olympic Esports Series 2023\" ?"].value_counts().reset_index()
+    counts = filtered_data["As-tu entendu parler de la semaine \"The Olympic Esports Series 2023\" ?"].value_counts().reset_index()
     counts.columns = ['Knowledge', 'Count']
     chart = alt.Chart(counts).mark_bar().encode(
         x='Knowledge:O',
@@ -91,8 +91,8 @@ def knowledge_about_event_chart():
 # 3. Jeux les plus connus
 def most_known_games_chart():
     # Extract game-related columns
-    game_cols = [col for col in data.columns if "Parmi ces jeux lesquels connais-tu?" in col and "Aucun" not in col]
-    counts = data[game_cols].sum().reset_index()
+    game_cols = [col for col in filtered_data.columns if "Parmi ces jeux lesquels connais-tu?" in col and "Aucun" not in col]
+    counts = filtered_data[game_cols].sum().reset_index()
     counts.columns = ['Game', 'Count']
     counts['Game'] = counts['Game'].str.replace("Parmi ces jeux lesquels connais-tu? \(", "").str.replace("\)", "")
     chart = alt.Chart(counts).mark_bar().encode(
