@@ -30,10 +30,9 @@ st.title("Analyse détaillée en fonction de la tranche d'âge sélectionnée")
 def age_distribution_chart():
     counts = data["À quelle tranche d'âge appartenez-vous ? "].value_counts().sort_index().reset_index()
     counts.columns = ['Tranche Âge', 'Nombre']
-    chart = alt.Chart(counts).mark_arc(innerRadius=50, outerRadius=150).encode(theta="Nombre:Q"
-        color=alt.Color('Tranche Âge:N', legend=None)
-        tooltip=['Tranche Âge', 'Nombre']
-    ).properties(
+    chart = alt.Chart(counts).mark_arc(innerRadius=50, outerRadius=150).encode(theta="Nombre:Q",
+        color=alt.Color('Tranche Âge:N', legend=None),
+        tooltip=['Tranche Âge', 'Nombre']).properties(
         title="Répartition par tranche d'âge de tous les répondants",
         width=400
     )
@@ -126,3 +125,4 @@ with c1:
     st.altair_chart(adjusted_interactive_bar_chart("Parmi ces athlètes, lesquels connais-tu ?", "Athlètes connus par les répondants"))
 with c2 : 
     st.altair_chart(most_known_games_chart())
+    
