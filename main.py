@@ -29,7 +29,7 @@ def age_distribution_chart():
         tooltip=['Tranche Âge', 'Nombre']).properties(
         title={
             "text": "Répartition par tranche d'âge de tous les répondants",
-            "dy": -20,  # déplace le titre vers le haut de 20 pixels
+            "dy": 20,  # déplace le titre vers le haut de 20 pixels
             "fontSize": 16
         },
         width=600
