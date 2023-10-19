@@ -17,10 +17,10 @@ data = load_data()
 
 
 
+
+# Afficher le nombre de répondants
+
 st.title("Analyse détaillée en fonction de la tranche d'âge sélectionnée")
-
-
-
 
 # 1. Répartition par tranche d'âge
 def age_distribution_chart():
@@ -40,6 +40,8 @@ def age_distribution_chart():
 left_column, center_column, right_column = st.columns(3)
 
 # Affichage du graphique dans la colonne centrale
+with left_column:
+    st.write(f"Nombre de répondants: {len(data)}")
 with center_column:
     st.altair_chart(age_distribution_chart())
 
