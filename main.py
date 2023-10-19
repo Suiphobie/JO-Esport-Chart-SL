@@ -39,12 +39,12 @@ def age_distribution_chart():
 # 2. Connaissance de 'The Olympic Esports Series 2023'
 def knowledge_about_event_chart():
     counts = filtered_data["As-tu entendu parler de la semaine \"The Olympic Esports Series 2023\" ?"].value_counts().reset_index()
-    counts.columns = ['Knowledge', 'Count']
+    counts.columns = ['Knowledge', 'Nombre']
     chart = alt.Chart(counts).mark_bar().encode(
         x='Knowledge:O',
         y='Nombre:Q',
         color='Knowledge:N',
-        tooltip=['Knowledge', 'Count']
+        tooltip=['Knowledge', 'Nombre']
     ).properties(
         title="Connaissance de 'The Olympic Esports Series 2023'",
         width=300
@@ -56,13 +56,13 @@ def most_known_games_chart():
     # Extract game-related columns
     game_cols = [col for col in filtered_data.columns if "Parmi ces jeux lesquels connais-tu?" in col and "Aucun" not in col]
     counts = filtered_data[game_cols].sum().reset_index()
-    counts.columns = ['Game', 'Count']
+    counts.columns = ['Game', 'Nombre']
     counts['Game'] = counts['Game'].str.replace("Parmi ces jeux lesquels connais-tu? \(", "").str.replace("\)", "")
     chart = alt.Chart(counts).mark_bar().encode(
         x=alt.X('Game:O', sort='-y'),
         y='Nombre:Q',
         color='Game:N',
-        tooltip=['Game', 'Count']
+        tooltip=['Game', 'Nombre']
     ).properties(
         title="Jeux les plus connus",
         width=600
@@ -80,7 +80,7 @@ def adjusted_interactive_bar_chart(question_prefix, title):
     
     # Aggregate the data
     counts = numeric_data.sum().reset_index()
-    counts.columns = ['Category', 'Count']
+    counts.columns = ['Category', 'Nombre']
     
     # Clean category names
     counts['Category'] = counts['Category'].str.replace(question_prefix + " \(", "", regex=True).str.replace("\)", "", regex=True)
@@ -90,7 +90,7 @@ def adjusted_interactive_bar_chart(question_prefix, title):
         x=alt.X('Category:O', sort='-y', title=''),
         y='Nombre:Q',
         color='Category:N',
-        tooltip=['Category', 'Count']
+        tooltip=['Category', 'Nombre']
     ).properties(
         title=title,
         width=600,  # Fixed width
