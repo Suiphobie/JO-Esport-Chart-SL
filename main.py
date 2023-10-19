@@ -36,7 +36,12 @@ def age_distribution_chart():
     )
     return chart
 
-st.altair_chart(age_distribution_chart())
+# Création de trois colonnes : gauche, centre, droite
+left_column, center_column, right_column = st.columns(3)
+
+# Affichage du graphique dans la colonne centrale
+with center_column:
+    st.altair_chart(age_distribution_chart())
 
 
 
