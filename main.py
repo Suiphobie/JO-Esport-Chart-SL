@@ -23,7 +23,7 @@ filtered_data = data if age_selection == "Tous" else data[data["À quelle tranch
 
 # 1. Répartition par tranche d'âge
 def age_distribution_chart():
-    counts = data["À quelle tranche d'âge appartenez-vous ? "].value_counts().reset_index()
+    counts = filtered_data["À quelle tranche d'âge appartenez-vous ? "].value_counts().reset_index()
     counts.columns = ['Tranche Âge', 'Nombre']
     chart = alt.Chart(counts).mark_bar().encode(
         x='Tranche Âge:O',
