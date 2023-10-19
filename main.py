@@ -153,7 +153,7 @@ with col2:
 with col3:
     st.altair_chart(knowledge_about_event_chart())
 # Nouveaux graphiques interactifs
-c1, c2,c3 = st.columns(2)
+c1, c2, c3 = st.columns(3)
 
 with c1: 
     st.altair_chart(adjusted_interactive_bar_chart("Quelles sont les épreuves que tu connais ?", "Épreuves connues par les répondants"))
