@@ -114,15 +114,13 @@ def adjusted_interactive_bar_chart(question_prefix, title):
 st.title("Résultats du sondage sur l'e-sport et les J.O.")
 
 # Utilisation de colonnes pour organiser les graphiques en colonnes
-col1, col2, col3 = st.columns(3)  
+col1, col2 = st.columns(2)  
 
 # Affichage des graphiques dans les colonnes appropriées
 
 with col1:
-    
-with col2:
     st.altair_chart(knowledge_about_event_chart())
-with col3: 
+with col2: 
     st.altair_chart(adjusted_interactive_bar_chart("Quelles sont les épreuves que tu connais ?", "Épreuves connues par les répondants"))
 # Nouveaux graphiques interactifs
 c1, c2 = st.columns(2)
