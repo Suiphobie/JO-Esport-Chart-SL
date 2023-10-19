@@ -15,10 +15,10 @@ data = load_data()
 
 
 # Création d'un widget pour la sélection de la tranche d'âge
-age_selection = st.selectbox("Sélectionnez une tranche d'âge:", options=data["À quelle tranche d'âge appartenez-vous ? "].unique(), index=0)
+age_selection = st.selectbox("Sélectionnez une tranche d'âge:", options=["Tous"] + list(data["À quelle tranche d'âge appartenez-vous ? "].unique()), index=0)
 
 # Filtrage des données en fonction de la tranche d'âge sélectionnée
-filtered_data = data[data["À quelle tranche d'âge appartenez-vous ? "] == age_selection]
+filtered_data = data if age_selection == "Tous" else data[data["À quelle tranche d'âge appartenez-vous ? "] == age_selection]
 
 
 # Pie Chart Tranche Age
