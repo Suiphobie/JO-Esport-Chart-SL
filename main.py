@@ -110,10 +110,10 @@ def most_known_games_chart():
 # Adjust the function to handle mixed data types
 def adjusted_interactive_bar_chart(question_prefix, title):
     # Extract related columns
-    related_cols = [col for col in data.columns if question_prefix in col and "Aucun" not in col]
+    related_cols = [col for col in filtered_data.columns if question_prefix in col and "Aucun" not in col]
     
     # Ensure the columns are numeric
-    numeric_data = data[related_cols].apply(pd.to_numeric, errors='coerce')
+    numeric_data = filtered_data[related_cols].apply(pd.to_numeric, errors='coerce')
     
     # Aggregate the data
     counts = numeric_data.sum().reset_index()
