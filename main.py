@@ -30,7 +30,7 @@ def age_distribution_chart():
         color=alt.Color('Tranche Âge:N'),
         tooltip=['Tranche Âge', 'Nombre']).properties(
         title="Répartition par tranche d'âge de tous les répondants",
-        width=400
+        width=600
         ).project(
         type='identity', scale=2
     )
