@@ -83,7 +83,7 @@ def adjusted_interactive_bar_chart(question_prefix, title):
     counts.columns = ['Category', 'Nombre']
     
     # Clean category names
-    counts['Category'] = counts['Category'].str.replace(question_prefix + " \(", "", regex=True).str.replace("\)", "", regex=True)
+    counts['Category'] = counts['Category'].str.extract(r"\((.*?)\)", expand=False)
     
     # Create the chart
     chart = alt.Chart(counts).mark_bar().encode(
