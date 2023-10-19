@@ -27,10 +27,12 @@ def age_distribution_chart():
     counts = data["À quelle tranche d'âge appartenez-vous ? "].value_counts().sort_index().reset_index()
     counts.columns = ['Tranche Âge', 'Nombre']
     chart = alt.Chart(counts).mark_arc(innerRadius=50, outerRadius=150).encode(theta="Nombre:Q",
-        color=alt.Color('Tranche Âge:N', legend=None),
+        color=alt.Color('Tranche Âge:N'),
         tooltip=['Tranche Âge', 'Nombre']).properties(
         title="Répartition par tranche d'âge de tous les répondants",
-        width=400   
+        width=400
+        ).project(
+        type='identity', scale=2
     )
     return chart
 
