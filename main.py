@@ -26,7 +26,7 @@ def age_distribution_chart():
     counts = data["À quelle tranche d'âge appartenez-vous ? "].value_counts().reset_index()
     counts.columns = ["Tranche d'âge", "Nombre"]
     chart = alt.Chart(counts).mark_bar().encode(
-        x='Tranche d'âge:O',
+        x="Tranche d'âge:O",
         y='Nombre:Q',
         color="Tranche d'âge:N",
         tooltip=["Tranche d'âge", "Nombre"]
