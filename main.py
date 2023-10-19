@@ -23,15 +23,15 @@ filtered_data = data if age_selection == "Tous" else data[data["À quelle tranch
 
 # 1. Répartition par tranche d'âge
 def age_distribution_chart():
-    counts = filtered_data["À quelle tranche d'âge appartenez-vous ? "].value_counts().reset_index()
-    counts.columns = ['Age Group', 'Count']
+    counts = data["À quelle tranche d'âge appartenez-vous ? "].value_counts().reset_index()
+    counts.columns = ['Tranche d'âge', 'Nombre']
     chart = alt.Chart(counts).mark_bar().encode(
-        x='Age Group:O',
-        y='Count:Q',
-        color='Age Group:N',
-        tooltip=['Age Group', 'Count']
+        x='Tranche d'âge:O',
+        y='Nombre:Q',
+        color='Tranche d'âge:N',
+        tooltip=['Tranche d'âge', 'Nombre']
     ).properties(
-        title="Répartition par tranche d'âge",
+        title="Répartition par tranche d'âge de tous les répondants",
         width=400
     )
     return chart
@@ -42,7 +42,7 @@ def knowledge_about_event_chart():
     counts.columns = ['Knowledge', 'Count']
     chart = alt.Chart(counts).mark_bar().encode(
         x='Knowledge:O',
-        y='Count:Q',
+        y='Nombre:Q',
         color='Knowledge:N',
         tooltip=['Knowledge', 'Count']
     ).properties(
@@ -60,7 +60,7 @@ def most_known_games_chart():
     counts['Game'] = counts['Game'].str.replace("Parmi ces jeux lesquels connais-tu? \(", "").str.replace("\)", "")
     chart = alt.Chart(counts).mark_bar().encode(
         x=alt.X('Game:O', sort='-y'),
-        y='Count:Q',
+        y='Nombre:Q',
         color='Game:N',
         tooltip=['Game', 'Count']
     ).properties(
@@ -88,7 +88,7 @@ def adjusted_interactive_bar_chart(question_prefix, title):
     # Create the chart
     chart = alt.Chart(counts).mark_bar().encode(
         x=alt.X('Category:O', sort='-y', title=''),
-        y='Count:Q',
+        y='Nombre:Q',
         color='Category:N',
         tooltip=['Category', 'Count']
     ).properties(
