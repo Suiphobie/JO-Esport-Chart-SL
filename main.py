@@ -19,7 +19,7 @@ age_selection = st.selectbox("Sélectionnez une tranche d'âge:", options=["Tous
 
 # Filtrage des données en fonction de la tranche d'âge sélectionnée
 
-st.altair_chart(age_distribution_chart())
+
 
 age_selection = st.selectbox("Sélectionnez une tranche d'âge:", options=["Tous"] + list(data["À quelle tranche d'âge appartenez-vous ? "].unique()), index=0)
 filtered_data = data if age_selection == "Tous" else data[data["À quelle tranche d'âge appartenez-vous ? "] == age_selection]
@@ -43,6 +43,8 @@ def age_distribution_chart():
         width=400
     )
     return chart
+
+st.altair_chart(age_distribution_chart())
 
 # 2. Connaissance de 'The Olympic Esports Series 2023'
 def knowledge_about_event_chart():
