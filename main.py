@@ -41,7 +41,7 @@ left_column, center_column, right_column = st.columns(3)
 
 # Affichage du graphique dans la colonne centrale
 with left_column:
-    st.write(f"Nombre de répondants: {len(data)}")
+    st.markdown(f"## Nombre de répondants: {len(data)}")
 with center_column:
     st.altair_chart(age_distribution_chart())
 
