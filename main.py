@@ -57,7 +57,7 @@ def most_known_games_chart():
     game_cols = [col for col in filtered_data.columns if "Parmi ces jeux lesquels connais-tu?" in col and "Aucun" not in col]
     counts = filtered_data[game_cols].sum().reset_index()
     counts.columns = ['Game', 'Nombre']
-    counts['Game'] = counts['Game'].str.replace("Parmi ces jeux lesquels connais-tu? \(", "").str.replace("\)", "")
+    counts['Game'] = counts['Game'].str.extract(r"\((.*?)\)", expand=False)
     chart = alt.Chart(counts).mark_bar().encode(
         x=alt.X('Game:O', sort='-y'),
         y='Nombre:Q',
